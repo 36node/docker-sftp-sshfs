@@ -2,6 +2,15 @@
 
 A docker image for mount sftp as a local folder with sshfs
 
+## 参数
+
+- SFTP_SERVER: 服务器 ip
+- SFTP_USER: 用户名
+- SFTP_PASSWORD: 密码
+- SFTP_REMOTE_DIR: sftp 的远程目录
+- SFTP_MOUNT_POINT: 挂载到容器内的位置
+- SFTP_RETAIN_DAYS: 文件保留天数可选，如果设置了，会定期清理 sftp 中的文件
+
 ## docker-compose 
 
 ```yaml
