@@ -2,14 +2,17 @@
 
 A docker image for mount sftp as a local folder with sshfs
 
-## 参数
+- auto mount sftp to local folder
+- could cleanup old files, optionally
 
-- SFTP_SERVER: 服务器 ip
-- SFTP_USER: 用户名
-- SFTP_PASSWORD: 密码
-- SFTP_REMOTE_DIR: sftp 的远程目录
-- SFTP_MOUNT_POINT: 挂载到容器内的位置
-- SFTP_RETAIN_DAYS: 文件保留天数可选，如果设置了，会定期清理 sftp 中的文件
+## Envrionment
+
+- SFTP_SERVER: server ip
+- SFTP_USER: username 
+- SFTP_PASSWORD: password
+- SFTP_REMOTE_DIR: sftp remove directory
+- SFTP_MOUNT_POINT: mount folder in container
+- SFTP_RETAIN_DAYS: The file retention days are optional. If set, it will regularly clean up the files in sftp.
 
 ## docker-compose 
 
