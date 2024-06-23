@@ -17,20 +17,18 @@ A docker image for mount sftp as a local folder with sshfs
 ## docker-compose 
 
 ```yaml
-version: '3.8'
-
 services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - sftp_mount:/usr/share/nginx/html/images
     depends_on:
       - sftp
 
   sftp:
-    image: your_registry/sftp-sshfs
+    image: 36node/sftp-sshfs:main
     privileged: true
     volumes:
       - sftp_mount:/mnt/sftp

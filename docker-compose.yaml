@@ -1,0 +1,19 @@
+services:
+  sftp:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    privileged: true
+    ports:
+      - "8080:80"
+    volumes:
+      - sftp_mount:/mnt/sftp
+    environment:
+      - SFTP_USER=
+      - SFTP_PASSWORD=
+      - SFTP_SERVER=
+      - SFTP_REMOTE_DIR=/
+      - SFTP_RETAIN_DAYS=7
+
+volumes:
+  sftp_mount:
