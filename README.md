@@ -4,6 +4,7 @@ A docker image for mount sftp as a local folder with sshfs
 
 - auto mount sftp to local folder
 - could cleanup old files, optionally
+- expose with nginx
 
 ## Envrionment
 
