@@ -18,25 +18,21 @@ A docker image for mount sftp as a local folder with sshfs
 
 ```yaml
 services:
-  nginx:
-    image: nginx:latest
+  sftp:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    privileged: true
     ports:
       - "8080:80"
     volumes:
-      - sftp_mount:/usr/share/nginx/html/images
-    depends_on:
-      - sftp
-
-  sftp:
-    image: 36node/sftp-sshfs:main
-    privileged: true
-    volumes:
       - sftp_mount:/mnt/sftp
     environment:
-      - SFTP_USER=sftp_user
-      - SFTP_PASSWORD=sftp_password
-      - SFTP_SERVER=sftp.example.com
-      - SFTP_REMOTE_DIR=/remote/directory
+      - SFTP_USER=
+      - SFTP_PASSWORD=
+      - SFTP_SERVER=
+      - SFTP_REMOTE_DIR=/
+      - SFTP_RETAIN_DAYS=7
 
 volumes:
   sftp_mount:
@@ -61,14 +57,9 @@ spec:
       labels:
         app: nginx-sftp
     spec:
-      initContainers:
+      containers:
       - name: sftp-mount
         image: 36node/sftp-sshfs:latest
-        securityContext:
-          privileged: true
-        volumeMounts:
-        - name: sftp-mount
-          mountPath: /mnt/sftp
         env:
         - name: SFTP_USER
           valueFrom:
@@ -90,17 +81,4 @@ spec:
             secretKeyRef:
               name: sftp-secrets
               key: remote_directory
-        - name: MOUNT_POINT
-          value: "/mnt/sftp"
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - name: sftp-mount
-          mountPath: /usr/share/nginx/html/images
-      volumes:
-      - name: sftp-mount
-        emptyDir: {}
 ```
